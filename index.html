@@ -21,13 +21,8 @@
     <span class="top-chip">12 SERVICES · 1 PLACE</span>
   </header>
   <section class="services-view" id="servicesView" aria-labelledby="heroTitle">
-    <div class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">Review studio</div>
-        <h1 id="heroTitle">Choose a service.<span class="shine">Copy a review.</span></h1>
-        <p class="hero-note">One tidy place for every SM Travels service and its three review drafts.</p>
-      </div>
-      <div class="hero-art" aria-hidden="true"><img src="cat-mascot.jpg" alt="" fetchpriority="high"></div>
+    <div class="hero hero-video-wrap" aria-label="SM Travels animated video">
+      <video class="hero-video" id="heroVideo" autoplay muted loop playsinline webkit-playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
     </div>
     <label class="search-wrap" aria-label="Search services">
       <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.4 4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -48,6 +43,23 @@
 </main>
 <script src="services.js"></script>
 <script>
+async function loadMobileHeroVideo(){
+  const video=document.getElementById('heroVideo');
+  const holder=document.querySelector('.hero-video-wrap');
+  if(!video||!holder||!window.matchMedia('(max-width: 767px)').matches){if(holder)holder.remove();return;}
+  try{
+    const paths=['video-parts/hero-video-01.txt','video-parts/hero-video-02.txt','video-parts/hero-video-03.txt'];
+    const chunks=await Promise.all(paths.map(async path=>{const response=await fetch(path,{cache:'force-cache'});if(!response.ok)throw new Error('Video asset unavailable: '+path);return response.text();}));
+    const base64=chunks.join('').trim();
+    if(base64.length!==19644)throw new Error('Incomplete video data');
+    const binary=atob(base64),bytes=new Uint8Array(binary.length);
+    for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+    const objectUrl=URL.createObjectURL(new Blob([bytes],{type:'video/mp4'}));
+    video.src=objectUrl;video.load();
+    const playback=video.play();if(playback&&typeof playback.catch==='function')playback.catch(()=>{});
+  }catch(error){console.error(error);holder.hidden=true;}
+}
+loadMobileHeroVideo();
 const services=window.SM_TRAVEL_SERVICES;
 const iconPaths=[
 `<path d="M3 13l1.7-4.5A2 2 0 0 1 6.6 7h10.8a2 2 0 0 1 1.9 1.5L21 13v5h-2v-2H5v2H3z"/><path d="M4 13h16M7 16h.01M17 16h.01M7 7l1-2h8l1 2"/>`,

@@ -36,14 +36,23 @@ const services=window.SM_TRAVEL_SERVICES;
 const params=new URLSearchParams(window.location.search);
 const requestedId=params.get('id')||params.get('service')||'';
 const service=services.find(item=>item.id===requestedId);
+const GOOGLE_REVIEW_URL="https://www.google.com/search?client=ms-android-samsung-ss&hs=e37V&sca_esv=aeb3d629ae2e4e7f&sxsrf=APpeQnus2OGSZ2CilSD9TU0r7CBY7XctuQ:1791740233847&q=sm+travelhub+sompura+reviews&uds=AJ5uw19MUgbM0nXav_jMApCFm9Da8xRqYahRjZMZdcMU7y7OuryK0lEKYFmTszOm_qD3xIkeF9CFng9YSIKrqvXheDjlP2FztJAEn6rIAFGUnfATIiYOnjppGaSugJCCCMFO2J62U1J51Jz5vbhh5QzN2bTEuj7lnBeXUz4jl3HXqDxAqznG33kU39d7nbTV_yrAgcSxf72vaKmoNaujMbB4f7Vnqi_I2uk9Nzp0RMqiE3obf-juza3XJmFanfH11jNjg9XtWX0w2h5cdZXjdvyH2diRGMQosbrVssdlIG-uzTs_qsBhBUl2sdNpJ-SqIXD-OYLSzeuTQ7MF4IXWJUspGDh3bprdHnmaOY0Akxgdc-bsCdcG0LgvwkP2m2RG0xGvDOTHeoBXuXQPIKzk0HCN8KtX5AxDX92Zt8G56kZ1hphVc7jL5q-8HtXW_Zc4T9hFBx1-BmDJ7uKyd84kSYVmkHA5OBfFg1_sZ1AwyLRbbNHY15p8tX5e76VRb1jQ9vA2zSowHNUIeMEawcCHoe_7OaI1kdAqVmb0gifoQ4ejH7Ko0BVjodUBF0QOUZzFCpavqj4YJeCR90HH07Pum_koXR6zSHU_e7denG1egfPQ5BqVT77m-4s&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_0_muIsOVcBb0USGMY5OirHWXbtOmZCadPTmhKuxWoLZQSV3gXy5tsjtsUu_g6jbE-7qB1Awssv4deeqhxug04aLj6KWTaNsuQGpNUhD7jX03duUcw%3D%3D&sa=X&sqi=2&ved=2ahUKEwii46vBwLKXAxVuWHADHSIwEA0Qk8gLegQIJRAB&ictx=1&biw=999&bih=1907&dpr=2.76#lrd=0x3bae72c041461245:0x8258062111c54982,3,,,,&ebo=5";
 const toast=document.getElementById('toast');let toastTimer;
 function copyIcon(){return '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2"/></svg>'}
 async function copyReview(text,button){
   let copied=false;
   try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);copied=true}}catch(e){copied=false}
   if(!copied){let area;try{area=document.createElement('textarea');area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.left='-9999px';area.style.top='0';document.body.appendChild(area);area.focus();area.select();copied=document.execCommand('copy')}catch(e){copied=false}finally{if(area)area.remove()}}
-  if(copied){button.classList.add('done');button.innerHTML='<span aria-hidden="true">✓</span> COPIED';toast.textContent='Review copied to clipboard';toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>{button.classList.remove('done');button.innerHTML=copyIcon()+' COPY REVIEW';toast.classList.remove('show')},1800)}
-  else{toast.textContent='Copy was blocked by this browser';toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2200)}
+  clearTimeout(toastTimer);
+  toast.classList.add('show');
+  if(copied){
+    button.classList.add('done');button.innerHTML='<span aria-hidden="true">✓</span> COPIED';
+    toast.textContent='Review copied! Opening Google Reviews…';
+    setTimeout(()=>window.location.assign(GOOGLE_REVIEW_URL),950);
+  }else{
+    toast.textContent='Copy could not be confirmed. Opening Google Reviews…';
+    setTimeout(()=>window.location.assign(GOOGLE_REVIEW_URL),1450);
+  }
 }
 if(!service){document.getElementById('serviceTitle').textContent='Service not found';document.getElementById('serviceDescription').textContent='Choose one of the SM Travels services to view its review drafts.';document.getElementById('reviews').style.display='none';document.querySelector('.review-section-head').style.display='none';document.getElementById('missingService').style.display='block';document.title='SM Travels | Service Not Found'}
 else{
