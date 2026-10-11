@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#061f70">
+<meta name="description" content="SM Travels service review drafts. Copy a sample review for the selected service.">
+<title>SM Travels | Service Review Drafts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand" aria-label="SM Travels Review Hub"><span class="brand-mark" aria-hidden="true">SM</span><span class="brand-name">SM TRAVELS<small>REVIEW HUB</small></span></div>
+    <span class="top-chip">SERVICE REVIEWS</span>
+  </header>
+  <a class="back" href="index.html"><span aria-hidden="true">←</span> ALL SERVICES</a>
+  <section class="view active" id="reviewView" aria-labelledby="serviceTitle">
+    <div class="detail-hero">
+      <div class="detail-copy"><span class="detail-label">SM Travels · Review drafts</span><h1 id="serviceTitle">Loading service…</h1><p id="serviceDescription">Three draft examples, each ready to copy.</p></div>
+      <div class="detail-art" aria-hidden="true"><img src="cat-mascot.jpg" alt="" fetchpriority="high"></div>
+    </div>
+    <div class="review-section-head"><div><h2>Review drafts</h2><p>Copy a draft below, then personalize it to match real feedback.</p></div><span class="draft-pill">3 EXAMPLES</span></div>
+    <div class="reviews" id="reviews"></div>
+    <div class="empty" id="missingService" style="display:none">That service could not be found.<br><a href="index.html" style="color:#9bd7ff">Return to all services</a>.</div>
+    <aside class="notice detail-notice"><strong>Review integrity:</strong> These are sample drafts from the supplied analysis PDF, not verified customer testimonials. Use them as drafting examples only; public reviews should reflect genuine customer experiences.</aside>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite">Copied to clipboard</div>
+<script src="services.js"></script>
+<script>
+const services=window.SM_TRAVEL_SERVICES;
+const params=new URLSearchParams(window.location.search);
+const requestedId=params.get('id')||params.get('service')||'';
+const service=services.find(item=>item.id===requestedId);
+const toast=document.getElementById('toast');let toastTimer;
+function copyIcon(){return '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2"/></svg>'}
+async function copyReview(text,button){
+  let copied=false;
+  try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);copied=true}}catch(e){copied=false}
+  if(!copied){let area;try{area=document.createElement('textarea');area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.left='-9999px';area.style.top='0';document.body.appendChild(area);area.focus();area.select();copied=document.execCommand('copy')}catch(e){copied=false}finally{if(area)area.remove()}}
+  if(copied){button.classList.add('done');button.innerHTML='<span aria-hidden="true">✓</span> COPIED';toast.textContent='Review copied to clipboard';toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>{button.classList.remove('done');button.innerHTML=copyIcon()+' COPY REVIEW';toast.classList.remove('show')},1800)}
+  else{toast.textContent='Copy was blocked by this browser';toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2200)}
+}
+if(!service){document.getElementById('serviceTitle').textContent='Service not found';document.getElementById('serviceDescription').textContent='Choose one of the SM Travels services to view its review drafts.';document.getElementById('reviews').style.display='none';document.querySelector('.review-section-head').style.display='none';document.getElementById('missingService').style.display='block';document.title='SM Travels | Service Not Found'}
+else{
+  document.getElementById('serviceTitle').textContent=service.name;
+  document.getElementById('serviceDescription').textContent=service.desc;
+  document.title=service.name+' | SM Travels Review Drafts';
+  const holder=document.getElementById('reviews');
+  service.reviews.forEach((review,index)=>{
+    const card=document.createElement('article');card.className='review';
+    const head=document.createElement('div');head.className='review-head';
+    const label=document.createElement('span');label.className='draft-label';label.textContent='Review draft 0'+(index+1);
+    const meta=document.createElement('span');meta.className='service-index';meta.textContent='SAMPLE TEXT';head.append(label,meta);
+    const p=document.createElement('p');p.textContent=review;
+    const copy=document.createElement('button');copy.type='button';copy.className='copy';copy.innerHTML=copyIcon()+' COPY REVIEW';copy.setAttribute('aria-label','Copy review draft '+(index+1));copy.addEventListener('click',()=>copyReview(review,copy));
+    card.append(head,p,copy);holder.appendChild(card);
+  });
+}
+</script>
+</body>
+</html>
