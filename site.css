@@ -129,3 +129,11 @@ button,input{font:inherit}button{-webkit-tap-highlight-color:transparent}button:
   .category-card .arrow{width:23px;height:23px}
 }
 @media(prefers-reduced-motion:reduce){.category-photo img{transition:none}}
+
+
+/* Source image crops already contain their category numbers; retain those labels
+   and preserve the crop's natural aspect ratio instead of duplicating/cropping them. */
+.category-index{display:none!important}
+.category-photo{height:auto!important;aspect-ratio:325/190}
+@media(min-width:540px){.category-photo{height:auto!important}}
+@media(max-width:375px){.category-photo{height:auto!important}}
