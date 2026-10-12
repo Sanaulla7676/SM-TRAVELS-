@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#061f70">
-<meta name="description" content="SM Travels service review hub. Find a service and open its review drafts.">
-<title>SM Travels | Review Hub</title>
+<meta name="description" content="SM Travels vehicle fleet review hub. Select a category, choose a vehicle service, and open its review drafts.">
+<title>SM Travels | Vehicle Fleet Review Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -18,27 +18,28 @@
       <span class="brand-mark" aria-hidden="true">SM</span>
       <span class="brand-name">SM TRAVELS<small>REVIEW HUB</small></span>
     </div>
-    <span class="top-chip">12 SERVICES · 1 PLACE</span>
+    <span class="top-chip" id="topChip">5 FLEET CATEGORIES</span>
   </header>
-  <section class="services-view" id="servicesView" aria-labelledby="heroTitle">
+  <section class="services-view" id="servicesView">
     <div class="hero hero-video-wrap" aria-label="SM Travels animated video">
       <video class="hero-video" id="heroVideo" autoplay muted loop playsinline webkit-playsinline preload="none" disablepictureinpicture aria-hidden="true"></video>
     </div>
-    <label class="search-wrap" aria-label="Search services">
+    <a class="back" id="categoryBack" href="index.html" style="display:none"><span aria-hidden="true">←</span> ALL CATEGORIES</a>
+    <label class="search-wrap" aria-label="Search the SM Travels fleet">
       <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.4 4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      <input class="search" id="serviceSearch" type="search" placeholder="Search a service, e.g. airport or bus…" autocomplete="off" aria-label="Search a service">
+      <input class="search" id="serviceSearch" type="search" placeholder="Search a category or vehicle…" autocomplete="off" aria-label="Search vehicle categories and sub-services">
       <button class="clear-search" id="clearSearch" type="button" aria-label="Clear search">×</button>
     </label>
     <div class="section-head">
-      <div><div class="kicker">Everything in one place</div><h2>Our <span>services</span></h2></div>
-      <span class="count" id="serviceCount">12 SERVICES</span>
+      <div><div class="kicker" id="sectionKicker">SM Travels vehicle fleet</div><h2 id="sectionTitle">Choose a <span>service</span></h2><p id="sectionSubtitle" class="section-subtitle">Select a category first, then choose a vehicle to see its review drafts.</p></div>
+      <span class="count" id="serviceCount">5 CATEGORIES</span>
     </div>
-    <div class="grid" id="serviceGrid" aria-label="SM Travels services"></div>
-    <div class="empty" id="emptyState">No services found.<br>Try a different search term.</div>
+    <div class="grid" id="serviceGrid" aria-label="SM Travels vehicle services"></div>
+    <div class="empty" id="emptyState">No matching services found.<br>Try another vehicle or category name.</div>
     <div class="trustline" aria-label="Interface features">
-      <span><i class="trustdot"></i> Quick to use</span><span><i class="trustdot"></i> One-tap copy</span><span><i class="trustdot"></i> Mobile-ready</span>
+      <span><i class="trustdot"></i> Category → vehicle → reviews</span><span><i class="trustdot"></i> One-tap copy</span><span><i class="trustdot"></i> Mobile-ready</span>
     </div>
-    <aside class="notice"><strong>Review integrity:</strong> These are sample drafts based on the supplied competitor analysis PDF, not verified customer testimonials. Share them only as drafts; public reviews should reflect genuine customer experiences.</aside>
+    <aside class="notice"><strong>Review integrity:</strong> These are sample review drafts from the supplied SM Travels Vehicle Fleet PDF, not verified customer testimonials. Public reviews should reflect genuine customer experiences.</aside>
   </section>
 </main>
 <script src="services.js"></script>
@@ -49,60 +50,100 @@ async function loadMobileHeroVideo(){
   if(!video||!holder||!window.matchMedia('(max-width: 767px)').matches){if(holder)holder.remove();return;}
   try{
     const paths=['video-parts/hero-video-01.txt','video-parts/hero-video-02.txt','video-parts/hero-video-03.txt'];
-    const chunks=await Promise.all(paths.map(async path=>{const response=await fetch(path,{cache:'force-cache'});if(!response.ok)throw new Error('Video asset unavailable: '+path);return response.text();}));
+    const chunks=await Promise.all(paths.map(async function(path){const response=await fetch(path,{cache:'force-cache'});if(!response.ok)throw new Error('Video asset unavailable: '+path);return response.text();}));
     const base64=chunks.join('').trim();
     if(base64.length!==19644)throw new Error('Incomplete video data');
     const binary=atob(base64),bytes=new Uint8Array(binary.length);
     for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
     const objectUrl=URL.createObjectURL(new Blob([bytes],{type:'video/mp4'}));
     video.src=objectUrl;video.load();
-    const playback=video.play();if(playback&&typeof playback.catch==='function')playback.catch(()=>{});
+    const playback=video.play();if(playback&&typeof playback.catch==='function')playback.catch(function(){});
   }catch(error){console.error(error);holder.hidden=true;}
 }
 loadMobileHeroVideo();
-const services=window.SM_TRAVEL_SERVICES;
-const iconPaths=[
-`<path d="M3 13l1.7-4.5A2 2 0 0 1 6.6 7h10.8a2 2 0 0 1 1.9 1.5L21 13v5h-2v-2H5v2H3z"/><path d="M4 13h16M7 16h.01M17 16h.01M7 7l1-2h8l1 2"/>`,
-`<circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20a5.5 5.5 0 0 1 11 0M14 16a4.2 4.2 0 0 1 7.5 2.8"/>`,
-`<path d="M3 6h18v11H3zM6 17v2m12-2v2M3 11h18M7 6V4h10v2"/><circle cx="7" cy="14" r="1"/><circle cx="17" cy="14" r="1"/>`,
-`<path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.3"/>`,
-`<path d="M3 10.5 21 4l-6.5 17-3.2-7.3z"/><path d="m11.3 13.7 4.5-4.5"/>`,
-`<path d="M4 20V7l8-4 8 4v13M2 20h20M8 20v-6h8v6M8 8h.01M12 8h.01M16 8h.01"/>`,
-`<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h10M7 13h6M7 16h3"/>`,
-`<path d="M3 19c3-1 3-4 6-5s3-5 6-6 4-3 6-5"/><path d="M14 3h7v7M3 21h18"/>`,
-`<path d="M4 5h16v14H4zM8 9h8M8 13h5"/><circle cx="17" cy="16" r="1"/>`,
-`<path d="M5 21V9l7-6 7 6v12M2 21h20M9 21v-6h6v6M8 10h.01M12 10h.01M16 10h.01"/>`,
-`<path d="M4 7h16v13H4zM7 7V4h10v3M4 12h16M8 16h3"/><path d="m15 3 3 3-3 3"/>`,
-`<path d="M3 6h18v11H3zM6 17v2m12-2v2M3 11h18M7 6V4h10v2"/><circle cx="7" cy="14" r="1"/><circle cx="17" cy="14" r="1"/>`
-];
+
+const categories=window.SM_TRAVEL_DATA||[];
+const params=new URLSearchParams(window.location.search);
+const categoryId=params.get('category');
+const selectedCategory=categories.find(function(category){return category.id===categoryId;})||null;
 const grid=document.getElementById('serviceGrid');
 const search=document.getElementById('serviceSearch');
 const clearSearch=document.getElementById('clearSearch');
-function iconSvg(index){return `<svg viewBox="0 0 24 24" aria-hidden="true">${iconPaths[index%iconPaths.length]}</svg>`}
-function shortDescription(id){return ({corporate:'Executive & business travel',employee:'Daily office commutes',bus:'12 to 50 seater buses',outstation:'Mysore, Coorg, Ooty & more',airport:'24/7 pickup & drop',events:'Weddings, MICE & VIP',expat:'International executives',holidays:'South India & beyond',sightseeing:'Bengaluru & nearby',tirupati:'Pilgrimage trips',booking:'Complete travel desk',intercity:'Routes & live tracking'})[id]||'Explore this service'}
-function renderServices(filter=''){
-  const q=filter.trim().toLowerCase();
-  const filtered=services.filter(s=>(s.name+' '+s.desc+' '+shortDescription(s.id)).toLowerCase().includes(q));
-  grid.innerHTML='';
-  filtered.forEach(s=>{
-    const index=services.indexOf(s), b=document.createElement('button');
-    b.type='button';b.className='service';b.setAttribute('aria-label','Open '+s.name+' review drafts');
-    const top=document.createElement('span');top.className='service-top';
-    const icon=document.createElement('span');icon.className='service-icon';icon.innerHTML=iconSvg(index);
-    const num=document.createElement('span');num.className='service-index';num.textContent=String(index+1).padStart(2,'0');top.append(icon,num);
-    const title=document.createElement('span');title.className='service-title';title.textContent=s.name;
-    const foot=document.createElement('span');foot.className='service-foot';
-    const desc=document.createElement('span');desc.textContent=shortDescription(s.id);
-    const arrow=document.createElement('span');arrow.className='arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='↗';
-    foot.append(desc,arrow);b.append(top,title,foot);
-    b.addEventListener('click',()=>{window.location.href='service.html?id='+encodeURIComponent(s.id)});grid.appendChild(b);
-  });
-  document.getElementById('serviceCount').textContent=filtered.length+' '+(filtered.length===1?'SERVICE':'SERVICES');
-  document.getElementById('emptyState').classList.toggle('show',filtered.length===0);
+const count=document.getElementById('serviceCount');
+const sectionTitle=document.getElementById('sectionTitle');
+const sectionKicker=document.getElementById('sectionKicker');
+const sectionSubtitle=document.getElementById('sectionSubtitle');
+const topChip=document.getElementById('topChip');
+const back=document.getElementById('categoryBack');
+const empty=document.getElementById('emptyState');
+const iconPaths=[
+'<path d="M3 13l1.7-4.5A2 2 0 0 1 6.6 7h10.8a2 2 0 0 1 1.9 1.5L21 13v5h-2v-2H5v2H3z"/><path d="M4 13h16M7 16h.01M17 16h.01M7 7l1-2h8l1 2"/>',
+'<circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20a5.5 5.5 0 0 1 11 0M14 16a4.2 4.2 0 0 1 7.5 2.8"/>',
+'<path d="M3 6h18v11H3zM6 17v2m12-2v2M3 11h18M7 6V4h10v2"/><circle cx="7" cy="14" r="1"/><circle cx="17" cy="14" r="1"/>',
+'<path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.3"/>',
+'<path d="M3 10.5 21 4l-6.5 17-3.2-7.3z"/><path d="m11.3 13.7 4.5-4.5"/>'
+];
+function iconSvg(index){return '<svg viewBox="0 0 24 24" aria-hidden="true">'+iconPaths[index%iconPaths.length]+'</svg>';}
+function allSubservices(){return categories.reduce(function(all,category){return all.concat(category.services.map(function(service){return Object.assign({},service,{categoryName:category.name,categoryId:category.id});}));},[]);}
+const flattened=allSubservices();
+function itemSearchText(item){return [item.name,item.description,item.keywords,item.code,item.categoryName].join(' ').toLowerCase();}
+function makeCard(options){
+  const b=document.createElement('button');b.type='button';b.className='service';
+  b.setAttribute('aria-label',options.ariaLabel||('Open '+options.name));
+  const top=document.createElement('span');top.className='service-top';
+  const icon=document.createElement('span');icon.className='service-icon';icon.innerHTML=iconSvg(options.iconIndex);
+  const num=document.createElement('span');num.className='service-index';num.textContent=options.code||String(options.iconIndex+1).padStart(2,'0');
+  top.append(icon,num);
+  const title=document.createElement('span');title.className='service-title';title.textContent=options.name;
+  const foot=document.createElement('span');foot.className='service-foot';
+  const desc=document.createElement('span');desc.textContent=options.description;
+  const arrow=document.createElement('span');arrow.className='arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='↗';
+  foot.append(desc,arrow);b.append(top,title,foot);b.addEventListener('click',options.onClick);return b;
 }
-search.addEventListener('input',()=>{renderServices(search.value);clearSearch.classList.toggle('show',!!search.value)});
-clearSearch.addEventListener('click',()=>{search.value='';renderServices();clearSearch.classList.remove('show');search.focus()});
-renderServices();
+function renderGrid(filter){
+  const q=(filter||'').trim().toLowerCase();grid.innerHTML='';
+  let visible=[];
+  if(selectedCategory){
+    visible=selectedCategory.services.filter(function(service){return itemSearchText(Object.assign({},service,{categoryName:selectedCategory.name})).includes(q);});
+    visible.forEach(function(service,index){
+      grid.appendChild(makeCard({
+        iconIndex:index,code:service.code,name:service.name,description:service.description,
+        ariaLabel:'Open reviews for '+service.name,
+        onClick:function(){window.location.href='service.html?id='+encodeURIComponent(service.id);}
+      }));
+    });
+    count.textContent=visible.length+' '+(visible.length===1?'VEHICLE':'VEHICLES');
+    sectionKicker.textContent=selectedCategory.name+' · Fleet sub-services';
+    sectionTitle.innerHTML='Choose a <span>vehicle</span>';
+    sectionSubtitle.textContent='Select a vehicle model to open its three review drafts.';
+    topChip.textContent=selectedCategory.name.toUpperCase()+' · '+selectedCategory.services.length+' OPTIONS';
+    back.style.display='inline-flex';back.href='index.html';search.placeholder='Search vehicles in '+selectedCategory.name+'…';
+  }else{
+    visible=categories.filter(function(category){
+      if(!q)return true;
+      return (category.name+' '+category.description).toLowerCase().includes(q)||category.services.some(function(service){return itemSearchText(Object.assign({},service,{categoryName:category.name})).includes(q);});
+    });
+    visible.forEach(function(category,index){
+      grid.appendChild(makeCard({
+        iconIndex:index,code:String(categories.indexOf(category)+1).padStart(2,'0'),name:category.name,
+        description:category.description+' · '+category.services.length+' options',
+        ariaLabel:'Choose '+category.name+' vehicle category',
+        onClick:function(){window.location.href='index.html?category='+encodeURIComponent(category.id)+(q?'&q='+encodeURIComponent(q):'');}
+      }));
+    });
+    count.textContent=visible.length+' '+(visible.length===1?'CATEGORY':'CATEGORIES');
+    sectionKicker.textContent='SM Travels vehicle fleet';
+    sectionTitle.innerHTML='Choose a <span>service</span>';
+    sectionSubtitle.textContent='Select a category first, then choose a vehicle to see its review drafts.';
+    topChip.textContent='5 FLEET CATEGORIES';
+    back.style.display='none';search.placeholder='Search a category or vehicle…';
+  }
+  empty.classList.toggle('show',visible.length===0);
+}
+search.addEventListener('input',function(){renderGrid(search.value);clearSearch.classList.toggle('show',!!search.value);});
+clearSearch.addEventListener('click',function(){search.value='';renderGrid('');clearSearch.classList.remove('show');search.focus();});
+if(selectedCategory&&params.get('q'))search.value=params.get('q');
+renderGrid(search.value);
 </script>
 </body>
 </html>

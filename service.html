@@ -15,27 +15,32 @@
 <main class="shell">
   <header class="topbar">
     <div class="brand" aria-label="SM Travels Review Hub"><span class="brand-mark" aria-hidden="true">SM</span><span class="brand-name">SM TRAVELS<small>REVIEW HUB</small></span></div>
-    <span class="top-chip">SERVICE REVIEWS</span>
+    <span class="top-chip" id="topChip">SERVICE REVIEWS</span>
   </header>
-  <a class="back" href="index.html"><span aria-hidden="true">←</span> ALL SERVICES</a>
+  <a class="back" id="backLink" href="index.html"><span aria-hidden="true">←</span> <span id="backLabel">ALL CATEGORIES</span></a>
   <section class="view active" id="reviewView" aria-labelledby="serviceTitle">
     <div class="detail-hero">
-      <div class="detail-copy"><span class="detail-label">SM Travels · Review drafts</span><h1 id="serviceTitle">Loading service…</h1><p id="serviceDescription">Three draft examples, each ready to copy.</p></div>
+      <div class="detail-copy"><span class="detail-label" id="detailLabel">SM Travels · Review drafts</span><h1 id="serviceTitle">Loading service…</h1><p id="serviceDescription">Three draft examples, each ready to copy.</p></div>
       <div class="detail-art" aria-hidden="true"><img src="cat-mascot.jpg" alt="" fetchpriority="high"></div>
     </div>
     <div class="review-section-head"><div><h2>Review drafts</h2><p>Copy a draft below, then personalize it to match real feedback.</p></div><span class="draft-pill">3 EXAMPLES</span></div>
     <div class="reviews" id="reviews"></div>
     <div class="empty" id="missingService" style="display:none">That service could not be found.<br><a href="index.html" style="color:#9bd7ff">Return to all services</a>.</div>
-    <aside class="notice detail-notice"><strong>Review integrity:</strong> These are sample drafts from the supplied analysis PDF, not verified customer testimonials. Use them as drafting examples only; public reviews should reflect genuine customer experiences.</aside>
+    <aside class="notice detail-notice"><strong>Review integrity:</strong> These are sample drafts from the supplied SM Travels Vehicle Fleet PDF, not verified customer testimonials. Use them as drafting examples only; public reviews should reflect genuine customer experiences.</aside>
   </section>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite">Copied to clipboard</div>
 <script src="services.js"></script>
 <script>
-const services=window.SM_TRAVEL_SERVICES;
+const categories=window.SM_TRAVEL_DATA||[];
 const params=new URLSearchParams(window.location.search);
 const requestedId=params.get('id')||params.get('service')||'';
-const service=services.find(item=>item.id===requestedId);
+let category=null;
+let service=null;
+for(const currentCategory of categories){
+  const found=currentCategory.services.find(item=>item.id===requestedId);
+  if(found){category=currentCategory;service=found;break;}
+}
 const GOOGLE_REVIEW_URL="https://www.google.com/search?client=ms-android-samsung-ss&hs=e37V&sca_esv=aeb3d629ae2e4e7f&sxsrf=APpeQnus2OGSZ2CilSD9TU0r7CBY7XctuQ:1791740233847&q=sm+travelhub+sompura+reviews&uds=AJ5uw19MUgbM0nXav_jMApCFm9Da8xRqYahRjZMZdcMU7y7OuryK0lEKYFmTszOm_qD3xIkeF9CFng9YSIKrqvXheDjlP2FztJAEn6rIAFGUnfATIiYOnjppGaSugJCCCMFO2J62U1J51Jz5vbhh5QzN2bTEuj7lnBeXUz4jl3HXqDxAqznG33kU39d7nbTV_yrAgcSxf72vaKmoNaujMbB4f7Vnqi_I2uk9Nzp0RMqiE3obf-juza3XJmFanfH11jNjg9XtWX0w2h5cdZXjdvyH2diRGMQosbrVssdlIG-uzTs_qsBhBUl2sdNpJ-SqIXD-OYLSzeuTQ7MF4IXWJUspGDh3bprdHnmaOY0Akxgdc-bsCdcG0LgvwkP2m2RG0xGvDOTHeoBXuXQPIKzk0HCN8KtX5AxDX92Zt8G56kZ1hphVc7jL5q-8HtXW_Zc4T9hFBx1-BmDJ7uKyd84kSYVmkHA5OBfFg1_sZ1AwyLRbbNHY15p8tX5e76VRb1jQ9vA2zSowHNUIeMEawcCHoe_7OaI1kdAqVmb0gifoQ4ejH7Ko0BVjodUBF0QOUZzFCpavqj4YJeCR90HH07Pum_koXR6zSHU_e7denG1egfPQ5BqVT77m-4s&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_0_muIsOVcBb0USGMY5OirHWXbtOmZCadPTmhKuxWoLZQSV3gXy5tsjtsUu_g6jbE-7qB1Awssv4deeqhxug04aLj6KWTaNsuQGpNUhD7jX03duUcw%3D%3D&sa=X&sqi=2&ved=2ahUKEwii46vBwLKXAxVuWHADHSIwEA0Qk8gLegQIJRAB&ictx=1&biw=999&bih=1907&dpr=2.76#lrd=0x3bae72c041461245:0x8258062111c54982,3,,,,&ebo=5";
 const toast=document.getElementById('toast');let toastTimer;
 function copyIcon(){return '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2"/></svg>'}
@@ -54,10 +59,14 @@ async function copyReview(text,button){
     setTimeout(()=>window.location.assign(GOOGLE_REVIEW_URL),1450);
   }
 }
-if(!service){document.getElementById('serviceTitle').textContent='Service not found';document.getElementById('serviceDescription').textContent='Choose one of the SM Travels services to view its review drafts.';document.getElementById('reviews').style.display='none';document.querySelector('.review-section-head').style.display='none';document.getElementById('missingService').style.display='block';document.title='SM Travels | Service Not Found'}
+if(!service){document.getElementById('serviceTitle').textContent='Service not found';document.getElementById('serviceDescription').textContent='Choose a vehicle category and sub-service to view its review drafts.';document.getElementById('reviews').style.display='none';document.querySelector('.review-section-head').style.display='none';document.getElementById('missingService').style.display='block';document.title='SM Travels | Service Not Found'}
 else{
   document.getElementById('serviceTitle').textContent=service.name;
-  document.getElementById('serviceDescription').textContent=service.desc;
+  document.getElementById('serviceDescription').textContent=category.name+' · '+service.description;
+  document.getElementById('detailLabel').textContent=category.name+' · '+service.code+' · Review drafts';
+  document.getElementById('topChip').textContent=category.name.toUpperCase();
+  document.getElementById('backLink').href='index.html?category='+encodeURIComponent(category.id);
+  document.getElementById('backLabel').textContent='BACK TO '+category.name.toUpperCase();
   document.title=service.name+' | SM Travels Review Drafts';
   const holder=document.getElementById('reviews');
   service.reviews.forEach((review,index)=>{

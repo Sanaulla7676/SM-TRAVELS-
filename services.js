@@ -1,50 +1,217 @@
-window.SM_TRAVEL_SERVICES=[
-{id:'corporate',name:'Corporate Car Rentals',desc:'Executive cars, sedans and premium chauffeur-driven business travel.',reviews:[
-'SM Travels provides exceptional corporate car rental Bangalore services. Our visiting executives received professional local rides in spotless sedans with polite, police-verified drivers who ensured absolute punctuality throughout their business meetings.',
-'We booked their premium luxury car rental options for our international board members. The transparent per-km billing and zero hidden costs made expense approvals completely hassle-free.',
-'SM Travels has been our primary corporate transport provider for over a year. Their fleet of Innova Crystas and executive sedans is impeccably maintained, backed by dedicated account managers and transparent invoicing.']},
-{id:'employee',name:'Employee Transportation',desc:'Managed daily commutes, customized routes and workforce transport.',reviews:[
-'SM Travels transformed our daily office commutes through efficient employee transportation Bangalore management. Their customized routes and punctuality have improved employee satisfaction across shifts.',
-'Safety is our top priority for late-night corporate shifts. SM Travels delivers complete peace of mind with police-verified drivers and real-time live GPS tracking across their fleet.',
-'An exceptionally reliable corporate commute partner. Their 24/7 availability, well-maintained vehicles, and transparent billing structure ensure smooth operational performance without budget surprises.']},
-{id:'bus',name:'Bus & Mini Bus Rentals',desc:'Group buses and luxury coaches for events, weddings and outings.',reviews:[
-'We needed to book a bus in Bangalore for a 100-person corporate offsite to Coorg. SM Travels supplied pristine 45 seater Volvo coach rentals that arrived on schedule with comfortable reclining seating.',
-'Wonderful experience using their mini bus hire Bangalore service for an extended family wedding trip. The 25 seater AC mini bus was clean, spacious, and handled highway driving smoothly.',
-'A top-tier group transportation vendor in Bangalore. The luxury AC bus rentals from SM Travels came with courteous drivers and upfront pricing, making overall event logistics effortless.']},
-{id:'outstation',name:'Outstation Taxi & Cabs',desc:'One-way and round-trip cabs to destinations across South India.',reviews:[
-'Booked an outstation vehicle booking Bangalore package for a weekend vacation to Ooty. The Innova Crysta was spotless, and the clear garage-to-garage pricing ensured zero unexpected costs at trip completion.',
-'The most reliable inter-city travel solutions in Bangalore. SM Travels provided a smooth round trip cab booking from Bangalore to Mysore with zero surge pricing and skilled highway drivers.',
-'Renting an outstation cab with SM Travels was simple and efficient. Clear per-km tariffs, fuel-included terms, and prompt driver pickups made our holiday trip to Coorg completely stress-free.']},
-{id:'airport',name:'Airport Transfers',desc:'Airport pickup and drop-off for Bengaluru airport terminals 1 and 2.',reviews:[
-'SM Travels offers a highly dependable 24/7 airport transfer Bangalore service. The driver arrived 15 minutes early at Terminal 2, assisting with heavy luggage after a long international flight.',
-'Extremely reliable airport taxi service with fixed transparent rates and zero surge pricing, even during midnight hours. Booking via their online portal takes under two minutes.',
-'Punctual, professional, and comfortable airport drop experience. The sedan was sanitized, cold AC was running, and the driver navigated Bangalore traffic efficiently.']},
-{id:'events',name:'Guest & Event Transport',desc:'Coordinated mobility for weddings, conferences and VIP delegations.',reviews:[
-'SM Travels managed all wedding transportation Bangalore requirements for our multi-day event. From luxury BMW rentals for VIPs to Tempo Travellers for family groups, execution was flawless.',
-'Outstanding guest transportation solutions for our international conference. Every event shuttle and executive sedan operated strictly on schedule across all venue locations.',
-'A reliable group mobility partner. SM Travels coordinated transit for over 300 event delegates with well-maintained vehicles, professional chauffeurs, and consolidated billing.']},
-{id:'expat',name:'Expat Transport',desc:'Premium chauffeur-driven travel for international executives and guests.',reviews:[
-'SM Travels delivers outstanding expat services Bangalore with professional, English-speaking chauffeurs who navigate city and highway routes with total skill and competence.',
-'Our company relies on SM Travels for executive mobility for visiting overseas leadership. Their premium chauffeur-driven luxury car rental options provide excellent comfort and safety.',
-'First-rate transportation tailored for international delegates. Impeccably clean sedans, courteous driver behavior, and smooth digital invoicing make them our preferred transport vendor.']},
-{id:'holidays',name:'Holiday Packages',desc:'Customized trips across South India, hill stations and holiday destinations.',reviews:[
-'Booked a customized family holiday package from Bangalore covering Mysore, Coorg, and Wayanad. Vehicle quality, driver conduct, and resort stays were handled perfectly by SM Travels.',
-'Their South India tour packages offer excellent value. The itinerary was well-paced, the driver was knowledgeable about local attractions, and vehicle condition was top class.',
-'An ideal travel partner for weekend trips and exploring day outing places near Bangalore. Clear package pricing and attentive customer support throughout the entire trip.']},
-{id:'sightseeing',name:'Sightseeing Tours',desc:'Bangalore city tours and full-day Mysore sightseeing trips.',reviews:[
-'The daily Bangalore sightseeing tour with SM Travels was structured brilliantly, covering major city landmarks with comfortable AC transit and zero delays.',
-'Booked a full-day Mysore sightseeing tour for visiting relatives. The chauffeur was polite, knowledgeable, and guided us smoothly through palace entries and attractions.',
-'Exceptional service for local city tour packages. Clean vehicles, punctual morning pickups, and easy booking make SM Travels an excellent choice for Bangalore sightseeing.']},
-{id:'tirupati',name:'Tirupati Darshan Packages',desc:'Bangalore–Tirupati pilgrimage transport and darshan trip coordination.',reviews:[
-'SM Travels organized an extraordinarily comfortable Tirupati special darshan package. The early morning pickup, smooth highway drive, and clear guidance made our pilgrimage completely hassle-free.',
-'Rented an Innova Crysta for a Bangalore to Tirupati cab trip. The driver was polite, experienced on highway routes, and ensured timely arrival for our darshan slot.',
-'A highly dependable temple tour package provider in Bangalore. Clear upfront pricing with toll and driver allowances included let our elderly family members travel in complete comfort.']},
-{id:'booking',name:'Flight, Hotel & Bus Booking',desc:'Travel desk support for flights, hotels, resorts and intercity buses.',reviews:[
-'SM Travels handled our end-to-end corporate trip logistics, including flight ticket booking Bangalore and hotel reservations in North India without a single issue.',
-'A true hassle-free travel agency. Their desk booked intercity bus tickets and resort accommodations at competitive rates with fast, instant digital confirmations.',
-'Excellent customer support for flight and hotel reservations. Their 24/7 help desk made schedule adjustments simple and seamless during our multi-city trip.']},
-{id:'intercity',name:'Intercity Bus & Live Tracking',desc:'Scheduled intercity coach routes and online bus tracking.',reviews:[
-'I regularly travel on the Bangalore to Hubli bus route with SM Travels. Impeccably clean sleeper coaches, punctual departures, and courteous bus staff every single trip.',
-'The track my bus live tracking feature on the SM Travels portal is accurate and responsive, making pickup coordination effortless for passengers and family members.',
-'Redefines long-distance road travel comfort with smooth suspension, sanitized seating, and punctual arrival times across all primary Karnataka intercity routes.']}
+window.SM_TRAVEL_DATA = [
+  {
+    "id": "cars",
+    "name": "Cars",
+    "description": "Everyday, family and premium car rentals",
+    "services": [
+      {
+        "id": "cars-sedan-dzire-etios",
+        "code": "1.1",
+        "name": "Sedan – Dzire / Etios (4 Seater)",
+        "description": "Dzire and Etios sedans for executive rides, airport trips and family travel.",
+        "keywords": "car rental bangalore, 24/7 airport transfer, transparent per-km billing, police-verified drivers, outstation cab",
+        "reviews": [
+          "Booked a Dzire sedan for corporate executive transfers and airport drop-offs. The driver was police-verified, arrived 10 minutes early, and the transparent per-km billing made corporate expensing completely seamless.",
+          "Rented an Etios sedan for a family day trip to Mysore. Excellent fuel-efficient vehicle, super clean interior, and zero surge pricing made our outstation cab booking totally stress-free.",
+          "Top-notch car rental bangalore service from SM Travels! The Dzire was impeccably maintained with cold AC and smooth highway handling throughout our day outing."
+        ]
+      },
+      {
+        "id": "cars-ertiga",
+        "code": "1.2",
+        "name": "Ertiga (7 Seater)",
+        "description": "Seven-seat family and group travel with room for luggage.",
+        "keywords": "outstation vehicle booking bangalore, 7 seater cab hire, garage to garage pricing, day outing places near bangalore",
+        "reviews": [
+          "Used the Ertiga 7 seater for our team's client visits across Bangalore. Spaciously accommodated 5 corporate delegates with luggage, backed by clear garage to garage pricing.",
+          "Ideal 7 seater cab hire for family vacations. We booked the Ertiga for a weekend getaway to Coorg, and the driver navigated winding hill roads with high skill.",
+          "Outstanding outstation vehicle booking bangalore experience. Clean seats, great legroom for 6 passengers, and transparent billing without hidden toll charges."
+        ]
+      },
+      {
+        "id": "cars-innova-crysta",
+        "code": "1.3",
+        "name": "Innova Crysta (7+1 Seater)",
+        "description": "Premium 7+1 seat comfort for executives, families and long trips.",
+        "keywords": "innova crysta rental bangalore, luxury outstation cab, executive city rides, bangalore to ooty cab, highway-trained drivers",
+        "reviews": [
+          "Reserved an Innova Crysta for visiting CXO executives. The vehicle was spotless, executive seating comfort was top-tier, and the highway-trained driver was extremely professional.",
+          "Our family trip from Bangalore to Ooty in the Innova Crysta 7+1 seater was fantastic. Plush pushback seats, dual AC, and smooth suspension across hill curves made it a breeze.",
+          "Hands down the best luxury outstation cab service in Bangalore. SM Travels delivered an impeccably sanitized Innova Crysta with zero surge pricing and upfront per-km rates."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tempo-travellers",
+    "name": "Tempo Travellers",
+    "description": "Multi-seat vans for corporate, family and pilgrimage travel",
+    "services": [
+      {
+        "id": "tempo-12-plus-1",
+        "code": "2.1",
+        "name": "12+1 Seater – AC / Non-AC",
+        "description": "12+1 seat options for outings, pilgrimages and group transfers.",
+        "keywords": "tempo traveller rent in bangalore for outstation, 12 seater tempo traveller, van hire bangalore, corporate team outing",
+        "reviews": [
+          "Booked a 12+1 seater AC Tempo Traveller for our office department outing. Exceptional van hire bangalore service with ample luggage space and pushback seating.",
+          "Perfect vehicle choice for a 12-person family pilgrimage to Tirupati. The AC was powerful, driver was courteous, and transparent pricing avoided any surprise charges.",
+          "High-quality 12 seater tempo traveller hire. Sanitized cabin, smooth highway handling, and clear garage-to-garage distance tracking made our trip seamless."
+        ]
+      },
+      {
+        "id": "tempo-13-plus-1",
+        "code": "2.2",
+        "name": "13+1 Seater – AC",
+        "description": "AC Tempo Traveller with recliner seating for group tours.",
+        "keywords": "13 seater tempo traveller bangalore, outstation vehicle booking, family group tour, zero surge pricing",
+        "reviews": [
+          "SM Travels provided a pristine 13+1 AC Tempo Traveller for our corporate retreat. Punctual morning pickup, comfortable seating, and polite highway-trained driver.",
+          "Rented the 13+1 AC Tempo Traveller for a family group tour to Chikmagalur. Recliner seats and individual AC vents made long highway hours very relaxing.",
+          "Great outstation vehicle booking experience! The 13+1 seater had smooth air suspension and zero surge pricing, giving our group absolute peace of mind."
+        ]
+      },
+      {
+        "id": "tempo-14-seater",
+        "code": "2.3",
+        "name": "14 Seater Tempo Traveller",
+        "description": "Luxury van option for event delegates and wedding guests.",
+        "keywords": "14 seater tempo traveller rent, luxury van hire bangalore, wedding transportation bangalore, corporate offsite",
+        "reviews": [
+          "Used the 14 seater tempo traveller for moving conference delegates between event venues. Excellent luxury van hire bangalore option with pristine interiors and punctual drivers.",
+          "Booked for wedding transportation bangalore to carry guests from the hotel to the venue. Spaciously carried 14 adults with heavy luggage comfortably.",
+          "Fantastic choice for corporate team outing bus rental requirements. Clean vehicle, competitive per-km rates, and reliable 24/7 service support."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "force-urbania",
+    "name": "Force Urbania",
+    "description": "Premium high-comfort vans for executive and leisure journeys",
+    "services": [
+      {
+        "id": "urbania-12-seater",
+        "code": "3.1",
+        "name": "12 Seater Force Urbania",
+        "description": "Premium 12-seat Urbania with luxury comfort for VIP travel.",
+        "keywords": "luxury force urbania rentals bangalore, force urbania for outstation, ultra-comfortable air suspension, VIP executive travel",
+        "reviews": [
+          "The 12 seater Force Urbania is the gold standard for VIP executive travel. Smooth air suspension, individual charging ports, and transparent per-km billing made our corporate trip luxury-grade.",
+          "Booked the 12 seater Force Urbania for an outstation vacation to Wayanad. Plush reclining leather seats and ultra-quiet cabin made long highway travel effortless.",
+          "Best luxury force urbania rentals bangalore provider! Clean, modern design with world-class ride comfort, high ceiling space, and background-checked drivers."
+        ]
+      },
+      {
+        "id": "urbania-16-plus-1",
+        "code": "3.2",
+        "name": "16+1 Seater Force Urbania",
+        "description": "Spacious premium van for MICE events, road trips and larger groups.",
+        "keywords": "16 seater force urbania rental, premium van hire bangalore, bangalore to goa trip, MICE event transportation",
+        "reviews": [
+          "Hired the 16+1 Seater Force Urbania for a high-profile MICE event delegation. Premium German-inspired engineering, wide aisles, and polite, police-verified drivers.",
+          "Took the 16+1 Force Urbania for a Bangalore to Goa road trip with friends. The air suspension handled rough patches effortlessly and reclining seats were super comfortable.",
+          "Unmatched premium van hire bangalore service. Superior legroom, powerful dual-AC climate control, and upfront per-kilometer billing with zero hidden charges."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mini-buses",
+    "name": "Mini Buses",
+    "description": "Mid-size bus rental for teams, families and group events",
+    "services": [
+      {
+        "id": "mini-bus-21",
+        "code": "4.1",
+        "name": "21 Seater Mini Bus",
+        "description": "21-seat coach for team outings and medium-sized groups.",
+        "keywords": "21 seater mini bus hire bangalore, corporate team outing bus rental, outstation group tour, book bus in bangalore",
+        "reviews": [
+          "Booked a 21 seater mini bus for our department's annual team outing. Timely pickup, cold air conditioning, and fixed transparent rates made logistics very smooth.",
+          "SM Travels provided a clean 21 seater mini bus for a medium family pilgrimage to Tirupati. Driver was well-versed with highway routes, tolls, and rest stops.",
+          "Easiest way to book bus in bangalore for medium groups. Well-maintained 21 seater coach, comfortable pushback seating, and professional overall service."
+        ]
+      },
+      {
+        "id": "mini-bus-25",
+        "code": "4.2",
+        "name": "25 Seater Mini Bus – AC / Non-AC",
+        "description": "25-seat bus for conferences, weddings and family outings.",
+        "keywords": "25 seater mini bus rent bangalore, wedding guest transportation, day outing places near bangalore, affordable group transport",
+        "reviews": [
+          "Rented the 25 seater AC mini bus for transporting corporate delegates during an international conference. Impeccable timing, polite driver, and spotless interior.",
+          "Perfect 25 seater mini bus rent bangalore service for wedding guest transportation. Smooth ride quality, ample luggage boot capacity, and zero surge pricing.",
+          "Organized a day outing near Bangalore with 24 team members. The 25 seater mini bus was super comfortable with an experienced highway-trained driver."
+        ]
+      },
+      {
+        "id": "mini-bus-33",
+        "code": "4.3",
+        "name": "33 Seater Mini Bus – AC / Non-AC",
+        "description": "33-seat bus for institutional tours and corporate retreats.",
+        "keywords": "33 seater mini bus booking, corporate retreat bus hire, institutional tour transport, transparent billing",
+        "reviews": [
+          "SM Travels managed our 33 seater mini bus booking for a corporate retreat to Kabini. High-capacity luggage storage, crisp AC, and professional chauffeur conduct.",
+          "Used the 33 seater AC mini bus for an institutional educational tour. Excellent safety protocols, police-verified driver, and transparent billing throughout.",
+          "Reliable 33 seater group transit with 24/7 road assistance and well-maintained vehicles. Booking process was fast, simple, and hassle-free."
+        ]
+      },
+      {
+        "id": "mini-bus-35",
+        "code": "4.4",
+        "name": "35 Seater Bus – AC / Non-AC",
+        "description": "35-seat bus for company offsites and wedding groups.",
+        "keywords": "35 seater bus rental bangalore, large group outstation travel, wedding bus hire, transparent per-km rates",
+        "reviews": [
+          "Booked a 35 seater AC bus for a corporate offsite event. Clean recliner seats, quiet cabin, and transparent per-km rates made budget approvals simple.",
+          "Great choice of wedding bus hire in Bangalore. The 35 seater bus transported 30+ family members comfortably to Mysore with plenty of luggage space.",
+          "Top-rated 35 seater bus rental bangalore option. Highway performance was excellent, driver was punctual, and the ride quality was remarkably smooth."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "luxury-coaches",
+    "name": "Luxury Coaches",
+    "description": "Large-capacity premium coaches for long-distance travel and events",
+    "services": [
+      {
+        "id": "luxury-coach-40-volvo",
+        "code": "5.1",
+        "name": "40 Seater Volvo Coach",
+        "description": "40-seat Volvo coach for conventions, tours and interstate trips.",
+        "keywords": "40 seater volvo coach rental bangalore, luxury AC bus rentals, inter-city corporate travel, live tracking",
+        "reviews": [
+          "The 40 seater Volvo coach rental from SM Travels delivered absolute luxury for our corporate convention. Air suspension made overnight highway transit feel effortless.",
+          "Booked the 40 seater Volvo coach for an outstation multi-city tour. Pristine vehicle, pushback luxury seating, and live GPS tracking gave organizers total peace of mind.",
+          "Best luxury AC bus rentals in Bangalore. Outstanding driver professionalism, ice-cold AC, and smooth inter-city transit across state borders."
+        ]
+      },
+      {
+        "id": "luxury-coach-45",
+        "code": "5.2",
+        "name": "45 Seater Bus",
+        "description": "45-seat bus for MICE events and organized pilgrimage travel.",
+        "keywords": "45 seater bus rental bangalore, corporate MICE event transportation, outstation pilgrimage tour, police-verified drivers",
+        "reviews": [
+          "Managed large-scale corporate MICE event transportation using SM Travels' 45 seater buses. Punctual arrivals across all pickup nodes and crystal-clear invoicing.",
+          "Rented a 45 seater AC bus for a pilgrimage trip to Mantralayam. Clean seat covers, spacious overhead racks, and polite, police-verified highway drivers.",
+          "SM Travels provides top-notch 45 seater bus rental bangalore services. Reliable mechanical condition, competitive mileage rates, and 24/7 customer support."
+        ]
+      },
+      {
+        "id": "luxury-coach-50",
+        "code": "5.3",
+        "name": "49/50 Seater Bus",
+        "description": "50-seat luxury bus option for large gatherings and wedding groups.",
+        "keywords": "50 seater bus booking bangalore, large group outing bus hire, wedding party luxury bus, garage to garage pricing",
+        "reviews": [
+          "Booked two 50 seater buses for our company's annual day out. Seamless fleet coordination, highly trained chauffeurs, and transparent garage to garage pricing.",
+          "Outstanding wedding party luxury bus service! The 49/50 seater bus carried our extended family safely and comfortably for an outstation destination wedding.",
+          "The most dependable 50 seater bus booking bangalore platform. Well-maintained fleet, zero surge pricing, and complete end-to-end trip management."
+        ]
+      }
+    ]
+  }
 ];
