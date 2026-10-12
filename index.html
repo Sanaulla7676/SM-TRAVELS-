@@ -88,17 +88,31 @@ function allSubservices(){return categories.reduce(function(all,category){return
 const flattened=allSubservices();
 function itemSearchText(item){return [item.name,item.description,item.keywords,item.code,item.categoryName].join(' ').toLowerCase();}
 function makeCard(options){
-  const b=document.createElement('button');b.type='button';b.className='service';
+  const b=document.createElement('button');b.type='button';b.className='service'+(options.imageSrc?' category-card':'');
   b.setAttribute('aria-label',options.ariaLabel||('Open '+options.name));
-  const top=document.createElement('span');top.className='service-top';
-  const icon=document.createElement('span');icon.className='service-icon';icon.innerHTML=iconSvg(options.iconIndex);
-  const num=document.createElement('span');num.className='service-index';num.textContent=options.code||String(options.iconIndex+1).padStart(2,'0');
-  top.append(icon,num);
-  const title=document.createElement('span');title.className='service-title';title.textContent=options.name;
-  const foot=document.createElement('span');foot.className='service-foot';
-  const desc=document.createElement('span');desc.textContent=options.description;
-  const arrow=document.createElement('span');arrow.className='arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='↗';
-  foot.append(desc,arrow);b.append(top,title,foot);b.addEventListener('click',options.onClick);return b;
+  if(options.imageSrc){
+    const photo=document.createElement('span');photo.className='category-photo';
+    const image=document.createElement('img');image.src=options.imageSrc;image.alt='';image.loading='lazy';image.decoding='async';
+    photo.appendChild(image);
+    const num=document.createElement('span');num.className='category-index';num.textContent=options.code||String(options.iconIndex+1).padStart(2,'0');
+    const content=document.createElement('span');content.className='category-content';
+    const title=document.createElement('span');title.className='service-title';title.textContent=options.name;
+    const foot=document.createElement('span');foot.className='service-foot';
+    const desc=document.createElement('span');desc.textContent=options.description;
+    const arrow=document.createElement('span');arrow.className='arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='↗';
+    foot.append(desc,arrow);content.append(title,foot);b.append(photo,num,content);
+  }else{
+    const top=document.createElement('span');top.className='service-top';
+    const icon=document.createElement('span');icon.className='service-icon';icon.innerHTML=iconSvg(options.iconIndex);
+    const num=document.createElement('span');num.className='service-index';num.textContent=options.code||String(options.iconIndex+1).padStart(2,'0');
+    top.append(icon,num);
+    const title=document.createElement('span');title.className='service-title';title.textContent=options.name;
+    const foot=document.createElement('span');foot.className='service-foot';
+    const desc=document.createElement('span');desc.textContent=options.description;
+    const arrow=document.createElement('span');arrow.className='arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='↗';
+    foot.append(desc,arrow);b.append(top,title,foot);
+  }
+  b.addEventListener('click',options.onClick);return b;
 }
 function renderGrid(filter){
   const q=(filter||'').trim().toLowerCase();grid.innerHTML='';
@@ -119,6 +133,13 @@ function renderGrid(filter){
     topChip.textContent=selectedCategory.name.toUpperCase()+' · '+selectedCategory.services.length+' OPTIONS';
     back.style.display='inline-flex';back.href='index.html';search.placeholder='Search vehicles in '+selectedCategory.name+'…';
   }else{
+    const categoryImages={
+      'cars':'assets/category-cars.webp',
+      'tempo-travellers':'assets/category-tempo-travellers.webp',
+      'force-urbania':'assets/category-force-urbania.webp',
+      'mini-buses':'assets/category-mini-buses.webp',
+      'luxury-coaches':'assets/category-luxury-coaches.webp'
+    };
     visible=categories.filter(function(category){
       if(!q)return true;
       return (category.name+' '+category.description).toLowerCase().includes(q)||category.services.some(function(service){return itemSearchText(Object.assign({},service,{categoryName:category.name})).includes(q);});
@@ -126,6 +147,7 @@ function renderGrid(filter){
     visible.forEach(function(category,index){
       grid.appendChild(makeCard({
         iconIndex:index,code:String(categories.indexOf(category)+1).padStart(2,'0'),name:category.name,
+        imageSrc:categoryImages[category.id],
         description:category.description+' · '+category.services.length+' options',
         ariaLabel:'Choose '+category.name+' vehicle category',
         onClick:function(){window.location.href='index.html?category='+encodeURIComponent(category.id)+(q?'&q='+encodeURIComponent(q):'');}

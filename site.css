@@ -96,3 +96,36 @@ button,input{font:inherit}button{-webkit-tap-highlight-color:transparent}button:
 /* Fleet hierarchy subtitle */
 .section-subtitle{max-width:320px;margin:5px 0 0;color:#b6cbf4;font-size:10px;line-height:1.55;font-weight:500}
 @media(max-width:375px){.section-subtitle{font-size:9px;max-width:245px}}
+
+
+/* Front-facing category photography from supplied SM Travels design ZIP.
+   The existing mobile video hero and its sizing are intentionally untouched. */
+.category-card{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;min-height:188px;padding:0;overflow:hidden;border-radius:16px;background:#03194d;box-shadow:inset 0 1px 0 #ffffff12,0 8px 18px #00164b28}
+.category-card::before{display:none}
+.category-photo{position:absolute;z-index:0;top:0;left:0;right:0;height:126px;display:block;overflow:hidden}
+.category-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .3s ease}
+.category-card:hover .category-photo img{transform:scale(1.035)}
+.category-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,20,68,.02) 5%,rgba(2,20,68,.05) 38%,rgba(2,20,68,.96) 100%)}
+.category-index{position:absolute;z-index:2;top:9px;right:10px;display:grid;place-items:center;width:29px;height:29px;border:1px solid #c7e5ff55;border-radius:10px;background:#042d89cc;color:#f6fbff;font-size:10px;font-weight:800;box-shadow:0 3px 12px #00144159}
+.category-content{position:relative;z-index:1;width:100%;margin-top:auto;padding:100px 10px 10px;display:flex;flex-direction:column;gap:0;background:linear-gradient(180deg,transparent 0%,rgba(3,21,66,.22) 14%,rgba(3,21,66,.98) 58%)}
+.category-card .service-title{display:block;font-size:12px;line-height:1.3;font-weight:800;letter-spacing:-.18px}
+.category-card .service-foot{display:flex;align-items:flex-end;gap:6px;padding-top:7px;color:#bed2ff;font-size:9px;line-height:1.35}
+.category-card .service-foot>span:first-child{max-width:calc(100% - 29px)}
+.category-card .arrow{width:25px;height:25px;flex-shrink:0}
+.category-card:active{transform:scale(.987)}
+@media(min-width:540px){
+  .category-card{min-height:222px}
+  .category-photo{height:150px}
+  .category-content{padding:122px 13px 12px}
+  .category-card .service-title{font-size:14px}
+  .category-card .service-foot{font-size:10px}
+}
+@media(max-width:375px){
+  .category-card{min-height:170px;border-radius:14px}
+  .category-photo{height:112px}
+  .category-content{padding:88px 8px 8px}
+  .category-card .service-title{font-size:11px}
+  .category-card .service-foot{font-size:8px;padding-top:6px}
+  .category-card .arrow{width:23px;height:23px}
+}
+@media(prefers-reduced-motion:reduce){.category-photo img{transition:none}}

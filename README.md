@@ -15,3 +15,7 @@ Mobile-first royal-blue review hub matching the existing SM Travels visual direc
 - Luxury Coaches: 40 Seater Volvo Coach, 45 Seater Bus, 49/50 Seater Bus
 
 Review text is sourced from the supplied SM Travels Vehicle Fleet PDF and is draft material, not verified customer testimonials.
+
+
+## Supplied design assets
+The five vehicle-category card images in `assets/` are from the supplied editable design ZIP. The existing mobile video hero, layout, review copy/redirect flow, and styling outside category cards have been retained.
